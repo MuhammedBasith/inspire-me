@@ -21,6 +21,11 @@ const HomeScreen = ({navigation}) => {
         <Text>Get Inspired ✨</Text>
       </TouchableOpacity>
 
+      <Button
+        title="❤️ View Favorites"
+        onPress={() => navigation.navigate('Favorites')}
+      />
+
       {/* <Button title="Get Inspired ✨" onPress={getRandomQuote} /> */}
     </View>
   );
@@ -33,6 +38,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'gray',
     padding: 10,
+    marginBottom: 30
   },
   container: {
     flex: 1,
