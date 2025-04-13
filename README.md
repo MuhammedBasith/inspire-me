@@ -1,97 +1,127 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# 📱 InspireMe – A Random Quotes App
 
-# Getting Started
+InspireMe is a simple yet elegant **React Native** app that fetches random quotes and displays them with beautiful background images. It’s built using the **bare React Native CLI** (not Expo) and designed to demonstrate key concepts such as navigation, API integration, state management, local storage, and component organization.
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+---
 
-## Step 1: Start Metro
+## ✨ Features
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+- 🔀 Fetches a **random quote** from an external API
+- 🎨 Displays the quote with a **random background image**
+- ❤️ Allows users to **save favorite quotes** to local storage (AsyncStorage)
+- 📚 Favorites screen to view all saved quotes
+- 🚀 Built with **React Navigation**, **AsyncStorage**, and core RN components
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+---
 
-```sh
-# Using npm
-npm start
+## 🧱 Tech Stack
 
-# OR using Yarn
-yarn start
+| Technology      | Purpose                              |
+|-----------------|--------------------------------------|
+| React Native    | Core framework                       |
+| React Navigation| Screen-to-screen navigation          |
+| AsyncStorage    | Local data persistence               |
+| Bare CLI Setup  | More control vs Expo                 |
+
+---
+
+## 🛠️ Setup Instructions
+
+### 1. Clone the Repo
+
+```bash
+git clone https://github.com/MuhammedBasith/InspireMe.git
+cd InspireMe
 ```
 
-## Step 2: Build and run your app
+### 2. Install Dependencies
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
-
-### Android
-
-```sh
-# Using npm
-npm run android
-
-# OR using Yarn
-yarn android
+```bash
+npm install
 ```
 
-### iOS
+### 3. Install Navigation & Async Storage
 
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
-
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
-
-```sh
-bundle install
+```bash
+npm install @react-navigation/native @react-navigation/native-stack
+npm install react-native-screens react-native-safe-area-context
+npm install @react-native-async-storage/async-storage
+npx pod-install ios  # if you're on macOS
 ```
 
-Then, and every time you update your native dependencies, run:
+### 4. Add Assets
 
-```sh
-bundle exec pod install
+Place 2–4 background images inside the `assets/` folder:
+```
+assets/
+  ├── bg1.jpg
+  ├── bg2.jpg
+  └── bg3.jpg
 ```
 
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
+### 5. Run the App
 
-```sh
-# Using npm
+```bash
+npm run android   # or
 npm run ios
-
-# OR using Yarn
-yarn ios
 ```
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+---
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+## 🧠 Concepts Covered
 
-## Step 3: Modify your app
+| Concept                  | Where it’s used                              |
+|--------------------------|-----------------------------------------------|
+| API Fetching             | `HomeScreen.js` – Fetch random quote         |
+| Navigation Stack         | `App.js` – Stack-based navigation setup      |
+| Local Images             | `QuoteScreen.js` – Random background display |
+| Memoization              | `useMemo` – Lock background image per quote  |
+| AsyncStorage             | `QuoteScreen.js` + `FavoritesScreen.js`      |
+| FlatList Rendering       | `FavoritesScreen.js`                         |
+| `useFocusEffect`         | Ensures data is reloaded on screen focus     |
 
-Now that you have successfully run the app, let's make changes!
+---
 
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
+## 📚 File Structure
 
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
+```
+InspireMe/
+├── App.js
+├── assets/
+│   └── bg1.jpg, bg2.jpg, ...
+├── screens/
+│   ├── HomeScreen.js
+│   ├── QuoteScreen.js
+│   └── FavoritesScreen.js
+```
 
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
+---
 
-## Congratulations! :tada:
+## 📡 API Used
 
-You've successfully run and modified your React Native App. :partying_face:
+[DummyJSON Quotes API](https://dummyjson.com/quotes)  
+We fetch a single quote by random ID:
+```bash
+GET https://dummyjson.com/quotes/{id}  // where id ∈ [1, 30]
+```
 
-### Now what?
+---
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
+## 🏁 How it Works
 
-# Troubleshooting
+1. **HomeScreen** has two buttons: "Get Inspired" and "View Favorites"
+2. "Get Inspired" fetches a random quote by ID and navigates to `QuoteScreen`
+3. `QuoteScreen`:
+   - Displays the quote and author
+   - Picks a random image using `useMemo`
+   - Offers a button to **save to favorites**
+4. "View Favorites" opens `FavoritesScreen`
+5. `FavoritesScreen`:
+   - Loads from AsyncStorage
+   - Shows saved quotes in a list
 
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+---
 
-# Learn More
+## 📝 License
 
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+MIT – free to use for educational or personal projects.
