@@ -10,6 +10,9 @@ const images = [
 ];
 
 const QuoteScreen = ({route}) => {
+
+  const {quote} = route.params;
+
   const saveToFavorites = async () => {
     try {
       const existing = await AsyncStorage.getItem('favorites');
@@ -33,9 +36,8 @@ const QuoteScreen = ({route}) => {
     }
   };
 
-  const {quote} = route.params;
 
-  // Pick a random image only once per render
+  // pick a random image only once per render
   //   const backgroundImage = useMemo(() => {
   //     const idx = Math.floor(Math.random() * images.length);
   //     return images[idx];
