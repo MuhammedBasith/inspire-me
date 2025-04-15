@@ -6,7 +6,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   Alert,
-  ImageBackground
+  ImageBackground,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useFocusEffect} from '@react-navigation/native';
@@ -51,7 +51,7 @@ const FavoritesScreen: React.FC = () => {
     <View style={styles.card}>
       <Text style={styles.quote}>"{item.quote}"</Text>
       <Text style={styles.author}>— {item.author}</Text>
-      <TouchableOpacity 
+      <TouchableOpacity
         style={styles.removeButton}
         onPress={() => removeFromFavorites(item.id)}>
         <Text style={styles.removeButtonText}>Remove</Text>
@@ -69,7 +69,9 @@ const FavoritesScreen: React.FC = () => {
         {favorites.length === 0 ? (
           <View style={styles.emptyContainer}>
             <Text style={styles.empty}>No favorites yet!</Text>
-            <Text style={styles.emptySubtext}>Save some quotes to see them here</Text>
+            <Text style={styles.emptySubtext}>
+              Save some quotes to see them here
+            </Text>
           </View>
         ) : (
           <FlatList

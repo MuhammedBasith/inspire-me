@@ -1,5 +1,11 @@
 import React from 'react';
-import {View, Text, StyleSheet, TouchableOpacity, ImageBackground} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ImageBackground,
+} from 'react-native';
 
 const HomeScreen = ({navigation}) => {
   const getRandomQuote = async () => {
@@ -22,13 +28,13 @@ const HomeScreen = ({navigation}) => {
       <View style={styles.content}>
         <Text style={styles.title}>InspireMe</Text>
         <Text style={styles.subtitle}>Find your daily dose of inspiration</Text>
-        
+
         <TouchableOpacity onPress={getRandomQuote} style={styles.primaryButton}>
           <Text style={styles.primaryButtonText}>Get Inspired ✨</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity 
-          onPress={() => navigation.navigate('Favorites')} 
+        <TouchableOpacity
+          onPress={() => navigation.navigate('Favorites')}
           style={styles.secondaryButton}>
           <Text style={styles.secondaryButtonText}>❤️ View Favorites</Text>
         </TouchableOpacity>

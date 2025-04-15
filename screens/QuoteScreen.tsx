@@ -8,9 +8,6 @@ import {
   Alert,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
-
-
 
 const images = [
   require('../assets/bg1.jpeg'),
@@ -18,8 +15,8 @@ const images = [
   require('../assets/bg3.jpeg'),
 ];
 
-const QuoteScreen = ({ route }) => {
-  const { quote } = route.params;
+const QuoteScreen = ({route}) => {
+  const {quote} = route.params;
 
   const saveToFavorites = async () => {
     try {
@@ -57,7 +54,7 @@ const QuoteScreen = ({ route }) => {
           <Text style={styles.quote}>"{quote.quote}"</Text>
           <Text style={styles.author}>— {quote.author}</Text>
         </View>
-        <TouchableOpacity 
+        <TouchableOpacity
           style={styles.favoriteButton}
           onPress={saveToFavorites}>
           <Text style={styles.favoriteButtonText}>❤️ Save to Favorites</Text>
