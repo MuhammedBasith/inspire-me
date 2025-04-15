@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, StyleSheet, Button, TouchableOpacity} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity, ImageBackground} from 'react-native';
 
 const HomeScreen = ({navigation}) => {
   const getRandomQuote = async () => {
@@ -15,40 +15,89 @@ const HomeScreen = ({navigation}) => {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>InspireMe</Text>
-      <TouchableOpacity onPress={getRandomQuote} style={styles.button}>
-        <Text>Get Inspired ✨</Text>
-      </TouchableOpacity>
+    <ImageBackground
+      source={require('../assets/bg1.jpeg')}
+      style={styles.container}
+      imageStyle={{opacity: 0.3}}>
+      <View style={styles.content}>
+        <Text style={styles.title}>InspireMe</Text>
+        <Text style={styles.subtitle}>Find your daily dose of inspiration</Text>
+        
+        <TouchableOpacity onPress={getRandomQuote} style={styles.primaryButton}>
+          <Text style={styles.primaryButtonText}>Get Inspired ✨</Text>
+        </TouchableOpacity>
 
-      <Button
-        title="❤️ View Favorites"
-        onPress={() => navigation.navigate('Favorites')}
-      />
-
-      {/* <Button title="Get Inspired ✨" onPress={getRandomQuote} /> */}
-    </View>
+        <TouchableOpacity 
+          onPress={() => navigation.navigate('Favorites')} 
+          style={styles.secondaryButton}>
+          <Text style={styles.secondaryButtonText}>❤️ View Favorites</Text>
+        </TouchableOpacity>
+      </View>
+    </ImageBackground>
   );
 };
 
 export default HomeScreen;
 
 const styles = StyleSheet.create({
-  button: {
-    alignItems: 'center',
-    backgroundColor: 'gray',
-    padding: 10,
-    marginBottom: 30
-  },
   container: {
+    flex: 1,
+  },
+  content: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 16,
+    padding: 24,
+    backgroundColor: 'rgba(255,255,255,0.7)',
   },
   title: {
-    fontSize: 28,
-    marginBottom: 20,
+    fontSize: 42,
     fontWeight: 'bold',
+    color: '#2c3e50',
+    marginBottom: 8,
+    textAlign: 'center',
+  },
+  subtitle: {
+    fontSize: 18,
+    color: '#7f8c8d',
+    marginBottom: 40,
+    textAlign: 'center',
+  },
+  primaryButton: {
+    backgroundColor: '#3498db',
+    paddingVertical: 16,
+    paddingHorizontal: 32,
+    borderRadius: 30,
+    marginBottom: 20,
+    width: '80%',
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  primaryButtonText: {
+    color: 'white',
+    fontSize: 18,
+    fontWeight: '600',
+  },
+  secondaryButton: {
+    backgroundColor: 'white',
+    paddingVertical: 16,
+    paddingHorizontal: 32,
+    borderRadius: 30,
+    width: '80%',
+    alignItems: 'center',
+    borderWidth: 2,
+    borderColor: '#3498db',
+  },
+  secondaryButtonText: {
+    color: '#3498db',
+    fontSize: 18,
+    fontWeight: '600',
   },
 });

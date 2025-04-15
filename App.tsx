@@ -11,10 +11,44 @@ const Stack = createNativeStackNavigator();
 const App = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Quote" component={QuoteScreen} />
-        <Stack.Screen name="Favorites" component={FavoritesScreen} />
+      <Stack.Navigator
+        initialRouteName="Home"
+        screenOptions={{
+          headerStyle: {
+            backgroundColor: '#3498db',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+          headerShadowVisible: false,
+          contentStyle: {
+            backgroundColor: '#f8f9fa',
+          },
+        }}>
+        <Stack.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{
+            title: 'InspireMe',
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="Quote"
+          component={QuoteScreen}
+          options={{
+            title: 'Daily Inspiration',
+            headerTransparent: true,
+          }}
+        />
+        <Stack.Screen
+          name="Favorites"
+          component={FavoritesScreen}
+          options={{
+            title: 'My Favorites',
+          }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

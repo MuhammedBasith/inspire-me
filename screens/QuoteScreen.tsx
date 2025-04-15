@@ -1,7 +1,16 @@
-import React, {useMemo} from 'react';
-import {View, Text, StyleSheet, ImageBackground} from 'react-native';
+import React from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ImageBackground,
+  TouchableOpacity,
+  Alert,
+} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {Button, Alert} from 'react-native';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+
+
 
 const images = [
   require('../assets/bg1.jpeg'),
@@ -9,9 +18,8 @@ const images = [
   require('../assets/bg3.jpeg'),
 ];
 
-const QuoteScreen = ({route}) => {
-
-  const {quote} = route.params;
+const QuoteScreen = ({ route }) => {
+  const { quote } = route.params;
 
   const saveToFavorites = async () => {
     try {
@@ -19,7 +27,7 @@ const QuoteScreen = ({route}) => {
       const parsed = existing ? JSON.parse(existing) : [];
 
       // Check for duplicates
-      const alreadySaved = parsed.find(q => q.id === quote.id);
+      const alreadySaved = parsed.find((q: {id: number}) => q.id === quote.id);
       if (alreadySaved) {
         Alert.alert(
           'Already Saved',
@@ -36,13 +44,7 @@ const QuoteScreen = ({route}) => {
     }
   };
 
-
-  // pick a random image only once per render
-  //   const backgroundImage = useMemo(() => {
-  //     const idx = Math.floor(Math.random() * images.length);
-  //     return images[idx];
-  //   }, []);
-
+  // Get a random background image
   const backgroundImage = images[Math.floor(Math.random() * images.length)];
 
   return (
@@ -50,11 +52,17 @@ const QuoteScreen = ({route}) => {
       source={backgroundImage}
       style={styles.bg}
       imageStyle={{opacity: 0.8}}>
-      <View style={styles.overlay}>
-        <Text style={styles.quote}>"{quote.quote}"</Text>
-        <Text style={styles.author}>— {quote.author}</Text>
+      <View style={styles.container}>
+        <View style={styles.overlay}>
+          <Text style={styles.quote}>"{quote.quote}"</Text>
+          <Text style={styles.author}>— {quote.author}</Text>
+        </View>
+        <TouchableOpacity 
+          style={styles.favoriteButton}
+          onPress={saveToFavorites}>
+          <Text style={styles.favoriteButtonText}>❤️ Save to Favorites</Text>
+        </TouchableOpacity>
       </View>
-      <Button title="Save to Favorites ❤️" onPress={saveToFavorites} />
     </ImageBackground>
   );
 };
@@ -65,24 +73,59 @@ const styles = StyleSheet.create({
   bg: {
     flex: 1,
     resizeMode: 'cover',
+  },
+  container: {
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     padding: 24,
+    backgroundColor: 'rgba(0,0,0,0.4)',
   },
   overlay: {
-    backgroundColor: 'rgba(255,255,255,0.85)',
-    padding: 20,
-    borderRadius: 12,
+    backgroundColor: 'rgba(255,255,255,0.9)',
+    padding: 24,
+    borderRadius: 16,
+    marginBottom: 24,
+    width: '100%',
+    maxWidth: 500,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
   quote: {
-    fontSize: 20,
+    fontSize: 24,
     fontStyle: 'italic',
     textAlign: 'center',
-    marginBottom: 12,
+    marginBottom: 16,
+    color: '#2c3e50',
+    lineHeight: 32,
   },
   author: {
-    fontSize: 16,
+    fontSize: 18,
     textAlign: 'right',
+    fontWeight: '600',
+    color: '#3498db',
+  },
+  favoriteButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'rgba(255,255,255,0.2)',
+    paddingVertical: 12,
+    paddingHorizontal: 24,
+    borderRadius: 30,
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.5)',
+    width: '80%',
+  },
+  favoriteButtonText: {
+    color: '#fff',
+    fontSize: 16,
     fontWeight: '600',
   },
 });
